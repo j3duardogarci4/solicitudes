@@ -2,7 +2,7 @@ Módulo Solicitud
 -----------------
 -Entidades:
  -> Solicitud
--Servicios:
+ -Servicios:
  - SolicitudService()
 -Depende de:
   - Usuario

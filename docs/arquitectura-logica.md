@@ -17,6 +17,7 @@ Depende de:
  - Ninguno
 
 Módulo Comentario
+-----------------
 Entidades:
   - Comentario
 Servicios:

@@ -1,48 +1,47 @@
 Módulo Solicitud
 -----------------
-Entidades:
+-Entidades:
  -> Solicitud
-Servicios:
+-Servicios:
  - SolicitudService()
-Depende de:
+-Depende de:
   - Usuario
 
 Módulo Usuario
 --------------
-Entidades:
+-Entidades:
  -> Usuario
-Servicios:
+-Servicios:
   - UsuarioService()
-Depende de:
+-Depende de:
  - Ninguno
 
 Módulo Comentario
 -----------------
-Entidades:
+-Entidades:
   - Comentario
-Servicios:
+-Servicios:
   - ComentarioService()
-Depende de:
+-Depende de:
   - Solicitud
   - Usuario
 
 Módulo Auditoría
 -----------------
-Entidades:
+-Entidades:
    - Auditoria
-Servicios:
+-Servicios:
    - AudiotriaService()
-Depende de:
+-Depende de:
    - Usuario
    - Solicitud
 
 Módulo Workflow
 ----------------
-Entidades: Ninguna
-Servicios:
+-Entidades: Ninguna
+-Servicios:
  - WorkflowService()
-
-Dependencias:
+- Depende de:
    - Solicitud
    - Comentario
    - Auditoría

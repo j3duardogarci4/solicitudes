@@ -1,7 +1,7 @@
 Módulo Solicitud
--------------------
+-----------------
 Entidades:
- - Solicitud
+ -> Solicitud
 Servicios:
  - SolicitudService()
 Depende de:
@@ -10,7 +10,7 @@ Depende de:
 Módulo Usuario
 --------------
 Entidades:
- - Usuario
+ -> Usuario
 Servicios:
   - UsuarioService()
 Depende de:

@@ -1,47 +1,48 @@
 Módulo Solicitud
 -----------------
--Entidades:
- -> Solicitud
- -Servicios:
- - SolicitudService()
--Depende de:
+Entidades:
+ - Solicitud
+Servicios:
+  - SolicitudService()
+Depende de:
   - Usuario
 
 Módulo Usuario
 --------------
--Entidades:
- -> Usuario
--Servicios:
+Entidades:
+  - Usuario
+Servicios:
   - UsuarioService()
--Depende de:
+Depende de:
  - Ninguno
 
 Módulo Comentario
 -----------------
--Entidades:
+Entidades:
   - Comentario
--Servicios:
+Servicios:
   - ComentarioService()
--Depende de:
+Depende de:
   - Solicitud
   - Usuario
 
 Módulo Auditoría
 -----------------
--Entidades:
+Entidades:
    - Auditoria
--Servicios:
+Servicios:
    - AudiotriaService()
--Depende de:
+Depende de:
    - Usuario
    - Solicitud
 
 Módulo Workflow
 ----------------
--Entidades: Ninguna
--Servicios:
+Entidades: 
+   - Ninguna
+Servicios:
  - WorkflowService()
-- Depende de:
+Depende de:
    - Solicitud
    - Comentario
    - Auditoría
@@ -70,7 +71,7 @@ Contener entidades, reglas de negocio, invariantes y servicios de dominio.
 
 application/
 --------------
-Responsabilidad:
+  Responsabilidad:
 Orquestar casos de uso del sistema.
 
 Ejemplos:

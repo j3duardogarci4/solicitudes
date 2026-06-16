@@ -26,14 +26,13 @@ src/main/java
 	           + Implementa las operaciones de administración de usuarios del sistema.
 	        -> UsuarioRepository.java
 	           + Define las operaciones necesarias para almacenar y recuperar atributos de una cuenta de usuario
-
 	    -> auditoria
 	        -> Auditoria.java
-	          + Representa un registro de auditoria de una solicitud
+	          + Representa un registro de auditoría de una solicitud
 	        -> AuditoriaService.java
 	          + Implementa las operaciones de registro y consulta de auditoría.
 	        -> AuditoriaRepository.java
-	          + Define las operaciones necesarias para almacenar y recuperar un registro de auditoria
+	          + Define las operaciones necesarias para almacenar y recuperar un registro de auditoría
 	    -> workflow
 	        -> WorkflowService.java 
 	       	  + Implementa las reglas de transición de estados y ciclo de vida de una solicitud.

@@ -9,26 +9,29 @@ Solicitud
 - idUsuarioCreador
 - idSupervisorAsignado
 
-*Usuario*
-id
-login
-perfil
-fecha_registro
-activo
+Usuario
+-------
+- id
+- login
+- perfil
+- fecha_registro
+- activo
 
-*Comentario*
-id
-comentario
-idsolicitud
-idSupervisor
-fecha
+Comentario
+----------
+- id
+- comentario
+- idsolicitud
+- idSupervisor
+- fecha
 
-*Auditoria*
-id
-fecha
-idsolicitud
-idUsuario
-accion
+Auditoria
+----------
+- id
+- fecha
+- idsolicitud
+- idUsuario
+- accion
 
 Relaciones
 -----------

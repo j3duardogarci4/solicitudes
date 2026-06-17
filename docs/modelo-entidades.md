@@ -35,11 +35,11 @@ Auditoria
 
 Relaciones
 -----------
-Solicitud 1 -> N Comentarios
-Solicitud 1 -> N Auditorias
-Usuario 1 -> N Solicitudes
-Usuario 1 -> N Comentarios
-Usuario 1 -> N Auditorias
+- Solicitud 1 -> N Comentarios
+- Solicitud 1 -> N Auditorias
+- Usuario 1 -> N Solicitudes
+- Usuario 1 -> N Comentarios
+- Usuario 1 -> N Auditorias
 
 Observaciones
 -------------

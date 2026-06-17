@@ -1,12 +1,13 @@
-''text
-*Solicitud*
-id
-descripción
-fecha_generacion
-fecha_actualizacion
-estado
-idUsuarioCreador
-idSupervisorAsignado
+
+Solicitud
+---------
+- id
+- descripción
+- fecha_generacion
+- fecha_actualizacion
+- estado
+- idUsuarioCreador
+- idSupervisorAsignado
 
 *Usuario*
 id

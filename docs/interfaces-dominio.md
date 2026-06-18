@@ -1,10 +1,11 @@
 [Definición de interfaces y contratos del dominio]
 
 Interface: SolicitudRepository
-* Responsabilidad: 
-  Persistir y recuperar solicitudes.
-* Operaciones:
-++ guardar()
+Responsabilidad: 
+  - Persistir y recuperar solicitudes.
+Operaciones:
+```text
++ guardar()
 + actualizar()
 + buscarPorId()
 

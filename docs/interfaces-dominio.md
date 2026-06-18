@@ -10,7 +10,7 @@ Operaciones:
 
 Interface: UsuarioRepository
 Responsabilidad:
- -> Persistir y recuperar datos de usuario
+  - Persistir y recuperar datos de usuario
 Operaciones:
 + guardar()
 + actualizar()
@@ -19,7 +19,7 @@ Operaciones:
   
 Interface: ComentarioRepository
 Responsabilidad:
--> Persistir y recuperar comentarios de una solicitud.
+  - Persistir y recuperar comentarios de una solicitud.
 Operaciones:
 + guardar()
 + buscarPorSolicitud()
@@ -27,7 +27,7 @@ Operaciones:
   
 Interface: AuditoriaRepository
 Responsabilidad
- -> Persistir y recuperar registros de auditoria
+  - Persistir y recuperar registros de auditoria
 Operaciones:
 +  guardar()
 +  buscarPorSolicitud()

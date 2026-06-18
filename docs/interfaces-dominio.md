@@ -3,7 +3,7 @@
 Interface: SolicitudRepository
 * Responsabilidad: 
   Persistir y recuperar solicitudes.
-Operaciones:
+* Operaciones:
 + guardar()
 + actualizar()
 + buscarPorId()

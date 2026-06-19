@@ -1,4 +1,3 @@
-# Solicitud
 ## Entidad: Solicitud
 ### Atributos:
 - Long id

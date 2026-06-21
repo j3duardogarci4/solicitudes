@@ -2,14 +2,14 @@ SolicitudRepository
 -------------------
 ### Responsabilidad
       Persistir y recuperar solicitudes.
-### Métodos
+### Método
       guardar()
 ### Parámetros
       Solicitud
 ### Retorno
       Ninguno
-
-buscarPorId()
+### Método
+      buscarPorId()
 ### Parámetros
       Long id
 ### Retorno

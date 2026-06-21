@@ -15,7 +15,8 @@ SolicitudRepository
 ### Retorno
       Solicitud
 
-actualizar()
+### Método
+      actualizar()
 ### Parámetros
       Solicitud
 ### Retorno

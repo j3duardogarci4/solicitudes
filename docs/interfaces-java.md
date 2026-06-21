@@ -4,8 +4,9 @@ AuditoriaRepository
 ComentarioRepository
 
 
-#Interface:
+##Interface:
 ### Métodos
-   - registraSolicitud()
+   - guardarSolicitud(Solicitud)
 #### Parámetros
+   - Solicitud
 #### Retorno

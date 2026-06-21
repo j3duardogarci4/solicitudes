@@ -1,12 +1,147 @@
 SolicitudRepository
+-------------------
+### Responsabilidad
+      Persistir y recuperar solicitudes.
+### Métodos
+      guardar()
+### Parámetros
+      Solicitud
+### Retorno
+      Ninguno
+
+#### buscarPorId()
+
+Parámetros
+
+Long id
+
+Retorno
+
+Solicitud
+
+actualizar()
+
+Parámetros
+
+Solicitud
+
+Retorno
+
+Ninguno
+
 UsuarioRepository
-AuditoriaRepository
+
+Responsabilidad
+
+Persistir y recuperar usuarios.
+
+Métodos
+
+guardar()
+
+Parámetros
+
+Usuario
+
+Retorno
+
+Ninguno
+
+buscarPorId()
+
+Parámetros
+
+Long id
+
+Retorno
+
+Usuario
+
+buscarPorLogin()
+
+Parámetros
+
+String login
+
+Retorno
+
+Usuario
+
+actualizar()
+
+Parámetros
+
+Usuario
+
+Retorno
+
+Ninguno
+
 ComentarioRepository
 
+Responsabilidad
 
-### Interface
-### Métodos
-   - guardarSolicitud(Solicitud)
-#### Parámetros
-   - Solicitud
-#### Retorno
+Persistir y recuperar comentarios.
+
+Métodos
+
+guardar()
+
+Parámetros
+
+Comentario
+
+Retorno
+
+Ninguno
+
+buscarPorSolicitud()
+
+Parámetros
+
+Long idSolicitud
+
+Retorno
+
+Lista de Comentarios
+
+AuditoriaRepository
+
+Responsabilidad
+
+Persistir y recuperar registros de auditoría.
+
+Métodos
+
+guardar()
+
+Parámetros
+
+Auditoria
+
+Retorno
+
+Ninguno
+
+buscarPorSolicitud()
+
+Parámetros
+
+Long idSolicitud
+
+Retorno
+
+Lista de Auditorias
+
+buscarPorRangoFechas()
+
+Parámetros
+
+Fecha inicio
+
+Fecha fin
+
+Retorno
+
+Lista de Auditorias
+

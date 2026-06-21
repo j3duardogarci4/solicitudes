@@ -9,25 +9,17 @@ SolicitudRepository
 ### Retorno
       Ninguno
 
-#### buscarPorId()
-
-Parámetros
-
-Long id
-
-Retorno
-
-Solicitud
+buscarPorId()
+### Parámetros
+      Long id
+### Retorno
+      Solicitud
 
 actualizar()
-
-Parámetros
-
-Solicitud
-
-Retorno
-
-Ninguno
+### Parámetros
+      Solicitud
+### Retorno
+      Ninguno
 
 UsuarioRepository
 

@@ -5,9 +5,9 @@ Agrupación de operaciones del negocio:
    -> crearSolicitud()
    -> modificarSolicitud()
    -> enviarSolicitud()
-   -> crearSolicituDesdeRechazada()
+   -> crearSolicitudDesdeRechazada()
 
-  * UsuariosService
+  * UsuarioService
   ------------------
    -> crearUsuario()
    -> asignarPerfil() 
@@ -82,7 +82,6 @@ Resultado:
 
 
 Operación: crearSolicitudDesdeRechazada()
-
 Entradas:
     - Id solicitud rechazada
     - Usuario creador
@@ -128,21 +127,6 @@ Resultado:
     - Estado APROBADA
     - Registro de auditoría 
 
-Operación: aprobarSolicitud()
-Entradas:
-   - Id de solicitud
-   - Usuario supervisor
-
-Validaciones:
-    - Solicitud existente
-    - Supervisor asignado es válido
-    - Solicitud no expirada
-    - Estado de solicitud registrado como ENVIADA
-    - Supervisor no es el mismo usuario creador.
-Resultado:
-    - Cambio de estado de solicitud a APROBADA
-    - Registro de auditoria
-
 Operación: rechazarSolicitud()
 Entradas:
     - Id solicitud
@@ -156,9 +140,9 @@ Validaciones:
     - Supervisor distinto de creador
 
 Resultado
-    - Registro de auditoria
-    - Estado RECHAZADA
-    - Registro de comentario
+    - Registro de comentario.
+    - Estado RECHAZADA.
+    - Registro de auditoría.
 
 Operación: cerrarSolicitud()
 Entradas: 
@@ -211,7 +195,7 @@ Validaciones:
 Resultado:
      - Usuario con perfil asignado.
 
-Operación: dehabilitarUsuario()
+Operación: deshabilitarUsuario()
 Entradas:
      - Login de usuario
      - Motivo desactivación
@@ -221,13 +205,10 @@ Validaciones:
      - Motivo de desactivación cumple longitud mínima.
 
 Resultado:
-     - Usuario desactvidado. 
+     - Usuario desactivado. 
 
 
-
-
-
-* ComentariosService
+* ComentarioService
   ---------------------
 Operación: registrarComentario()
 Entradas:
@@ -254,18 +235,7 @@ Validaciones:
 Resultado:
      - Lista de comentarios asociados a la solicitud.
 
-
-
-Operación: consultarHistorial()
-Entradas:
-      - Rango de consulta
-Validaciones:
-
-Resultado:
-      - Listado de comentarios solicitados.
-
-
-* Auditoría Service
+* AuditoriaService
 --------------------
 Operación: registrarAccion()
 Entradas:
@@ -280,6 +250,15 @@ Validaciones:
 
 Resultado:
     - Registro de auditoría generado.
+
+Operación: consultarHistorial()
+Entradas:
+      - Id solicitud o criterio de búsqueda
+Validaciones:
+      - Solicitud existente (si aplica)
+Resultado:
+      - Listado de registros de auditoría asociados al criterio de búsqueda.
+
 
 Observaciones
 -------------

@@ -1,4 +1,4 @@
-SolicitudRepository
+Interface: SolicitudRepository
 -------------------
 ### Responsabilidad
       Persistir y recuperar solicitudes.
@@ -23,83 +23,56 @@ SolicitudRepository
       Ninguno
 
 UsuarioRepository
+-----------------
+### Responsabilidad
+      Persistir y recuperar usuarios.
+### Métodos
+      guardar()
+### Parámetros
+      Usuario
+      
+### Retorno
+      Ninguno
 
-Responsabilidad
+### Método 
+      buscarPorId()
+### Parámetros
+      Long Id
+### Retorno
+      Usuario
 
-Persistir y recuperar usuarios.
-
-Métodos
-
-guardar()
-
-Parámetros
-
-Usuario
-
-Retorno
-
-Ninguno
-
-buscarPorId()
-
-Parámetros
-
-Long id
-
-Retorno
-
-Usuario
-
-buscarPorLogin()
-
-Parámetros
-
-String login
-
-Retorno
-
-Usuario
+### Método
+      buscarPorLogin()
+### Parámetros
+      String login
+### Retorno
+      Usuario
 
 actualizar()
-
-Parámetros
-
-Usuario
-
-Retorno
-
-Ninguno
+### Parámetros
+      Usuario
+### Retorno
+      Ninguno
 
 ComentarioRepository
-
-Responsabilidad
-
-Persistir y recuperar comentarios.
-
-Métodos
-
-guardar()
-
-Parámetros
-
-Comentario
-
-Retorno
-
-Ninguno
+--------------------
+### Responsabilidad
+      Persistir y recuperar comentarios.
+### Métodos
+      guardar()
+### Parámetros
+      Comentario
+### Retorno
+      Ninguno
 
 buscarPorSolicitud()
+### Parámetros
+      Long idSolicitud
+### Retorno
+      Lista de Comentarios
 
-Parámetros
-
-Long idSolicitud
-
-Retorno
-
-Lista de Comentarios
-
-AuditoriaRepository
-
+Interface : AuditoriaRepository
+-----------
 Responsabilidad
 
 Persistir y recuperar registros de auditoría.

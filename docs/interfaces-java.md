@@ -1,5 +1,5 @@
 Interface: SolicitudRepository
--------------------
+------------------------------
 ### Responsabilidad
       Persistir y recuperar solicitudes.
 ### Método
@@ -22,8 +22,8 @@ Interface: SolicitudRepository
 ### Retorno
       Ninguno
 
-UsuarioRepository
------------------
+Interface: UsuarioRepository
+----------------------------
 ### Responsabilidad
       Persistir y recuperar usuarios.
 ### Métodos
@@ -48,14 +48,15 @@ UsuarioRepository
 ### Retorno
       Usuario
 
-actualizar()
+### Método
+      actualizar()
 ### Parámetros
       Usuario
 ### Retorno
       Ninguno
 
-ComentarioRepository
---------------------
+Interface: ComentarioRepository
+-------------------------------
 ### Responsabilidad
       Persistir y recuperar comentarios.
 ### Métodos
@@ -72,42 +73,28 @@ buscarPorSolicitud()
       Lista de Comentarios
 
 Interface : AuditoriaRepository
------------
-Responsabilidad
+-------------------------------
+### Responsabilidad
+      Persistir y recuperar registros de auditoría.
+### Método
+      guardar()
+### Parámetros
+      Auditoria
+### Retorno
+      Ninguno
 
-Persistir y recuperar registros de auditoría.
+### Método 
+      buscarPorSolicitud()
+### Parámetros
+      Long idSolicitud
+### Retorno
+      Lista de Auditorias
 
-Métodos
-
-guardar()
-
-Parámetros
-
-Auditoria
-
-Retorno
-
-Ninguno
-
-buscarPorSolicitud()
-
-Parámetros
-
-Long idSolicitud
-
-Retorno
-
-Lista de Auditorias
-
-buscarPorRangoFechas()
-
-Parámetros
-
-Fecha inicio
-
-Fecha fin
-
-Retorno
-
-Lista de Auditorias
+### Método
+      buscarPorRangoFechas()
+### Parámetros
+      Fecha inicio
+      Fecha fin
+### Retorno
+      Lista de Auditorias
 

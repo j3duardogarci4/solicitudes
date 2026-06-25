@@ -59,14 +59,14 @@ Interface: ComentarioRepository
 -------------------------------
 ### Responsabilidad
       Persistir y recuperar comentarios.
-### Métodos
+### Método
       guardar()
 ### Parámetros
       Comentario
 ### Retorno
       Ninguno
-
-buscarPorSolicitud()
+### Método
+      buscarPorSolicitud()
 ### Parámetros
       Long idSolicitud
 ### Retorno
@@ -82,7 +82,6 @@ Interface : AuditoriaRepository
       Auditoria
 ### Retorno
       Ninguno
-
 ### Método 
       buscarPorSolicitud()
 ### Parámetros

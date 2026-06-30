@@ -5,8 +5,8 @@ import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
 public class SolicitudService {
     
     private final SolicitudRepository solictudRepository;
-    private final AuditoriaService auditoriaSErvice;
-    public SolicitudService(SolicitudRepository solictudRepository, AuditoriaService auditoriaSErvice){
+    private final AuditoriaService auditoriaService;
+    public SolicitudService(SolicitudRepository solictudRepository, AuditoriaService auditoriaService){
        this.solicitudRepository = solicitudRepository;
        this.auditoriaService = auditoriaService;	
     } 

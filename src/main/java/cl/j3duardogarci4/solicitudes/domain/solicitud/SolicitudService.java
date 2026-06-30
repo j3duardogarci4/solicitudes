@@ -1,13 +1,14 @@
 package cl.j3duardogarci4.solicitudes.domain.solicitud;
 
+import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
 import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
 
 public class SolicitudService {
     
     private final SolicitudRepository solictudRepository;
     private final AuditoriaService auditoriaService;
-    public SolicitudService(SolicitudRepository solictudRepository, AuditoriaService auditoriaService){
-       this.solicitudRepository = solicitudRepository;
+    public SolicitudService(SolicitudRepository solicitudRepository, AuditoriaService auditoriaService){
+       this.solictudRepository = solicitudRepository;
        this.auditoriaService = auditoriaService;	
     } 
 

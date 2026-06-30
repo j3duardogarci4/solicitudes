@@ -6,7 +6,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final AuditoriaService auditoriaService;
     
-    public void UsuarioService(UsuarioRepository usuarioRepository, AuditoriaService auditoriaService{
+    public UsuarioService(UsuarioRepository usuarioRepository, AuditoriaService auditoriaService){
         this.usuarioRepository = usuarioRepository;
         this.auditoriaService = auditoriaService;
     };

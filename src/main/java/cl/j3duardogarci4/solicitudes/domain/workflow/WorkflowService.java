@@ -3,7 +3,7 @@ package cl.j3duardogarci4.solicitudes.domain.workflow;
 import cl.j3duardogarci4.solicitudes.domain.comentario.Comentario;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
 import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
-
+import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaRepository;
 import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
 import cl.j3duardogarci4.solicitudes.domain.comentario.ComentarioRepository;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
@@ -11,7 +11,7 @@ import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
 public class WorkflowService {
     private final SolicitudRepository solicitudRepository;
     private final ComentarioRepository comentarioRepository;
-    private final AuditoriaRepository = auditoriaRepository;
+    private final AuditoriaRepository auditoriaRepository;
     
     public WorkflowService(
             SolicitudRepository solicitudRepository,          

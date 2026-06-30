@@ -1,5 +1,7 @@
 package cl.j3duardogarci4.solicitudes.domain.usuario;
 
+import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
+
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final AuditoriaService auditoriaService;

@@ -11,4 +11,14 @@ public class Solicitud {
     private EstadoSolicitud estado;
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
+
+    public void setEstado(EstadoSolicitud estado){
+       this.estado = estado;    
+    }
+    public void setFechaGeneracion(LocalDateTime fechaGeneracion){
+        this.fechaGeneracion = fechaGeneracion;
+    }
+     public Long getId() {
+        return id;
+    }
 }

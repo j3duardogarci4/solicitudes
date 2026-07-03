@@ -9,4 +9,9 @@ public class Usuario {
     private PerfilUsuario perfil;
     private LocalDateTime fechaRegistro;
     private Boolean activo;
+
+    public Boolean isActivo(){
+        return activo;
+    }
 }
+

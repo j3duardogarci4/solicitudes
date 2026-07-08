@@ -38,7 +38,43 @@ public class SolicitudService {
         auditoriaService.registrarAccion(solicitud.getId(), "CREAR_SOLICITUD", usuario);
     }
 
-    public void modificarSolicitud(Solicitud solicitud, Usuario usuario) {
+    public void modificarSolicitud(Solicitud solicitud, Usuario usuario, String nuevaDescripcion) {
+
+        // Validar que la solicitud exista
+        if (solicitud == null){
+            throw new IllegalArgumentException("La solicitud es obligatoria");
+        }
+
+        // Validar usuario
+        if (!usuario.isActivo()){
+            throw new IllegalArgumentException("El usuario está inactivo");
+        }       
+
+        // Validar que el usuario sea el creador
+        if (!solicitud.getIdUsuarioCreador().equals(usuario.getId())){
+             throw new IllegalArgumentException("Solo el creador puede modificar la solicitud");
+        }
+
+        // Validar que el estado sea BORRADOR
+        if (!(solicitud.getEstado() !=   EstadoSolicitud.BORRADOR)){
+            throw new IllegalArgumentException("Solo las solicitudes en estado BORRADOR pueden modificarse");
+        }
+
+        // Actualizar descripción 
+        solicitud.setDescripcion(nuevaDescripcion);
+
+        // Registrar fecha de actualización
+        solicitud.setFechaGeneracion(LocalDateTime.now());
+
+        // Guardar Solicitud
+        solictudRepository.actualizar(solicitud);
+
+
+        // Registrar auditoria
+        auditoriaService.registrarAccion(solicitud.getId(), "MODIFICAR_SOLICITUD", usuario);
+
+        
+
 
     }
 

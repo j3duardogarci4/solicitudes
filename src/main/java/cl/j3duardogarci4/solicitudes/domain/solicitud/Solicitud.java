@@ -11,7 +11,11 @@ public class Solicitud {
     private EstadoSolicitud estado;
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
-
+    
+    public EstadoSolicitud getEstado() {
+        return estado;
+    }
+    
     public void setEstado(EstadoSolicitud estado){
        this.estado = estado;    
     }
@@ -20,5 +24,16 @@ public class Solicitud {
     }
      public Long getId() {
         return id;
+    }
+
+    public Long getIdUsuarioCreador(){
+        return idUsuarioCreador;
+    }
+        public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

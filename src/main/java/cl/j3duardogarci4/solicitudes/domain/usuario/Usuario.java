@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class Usuario {
 
     private Long id;
+   
+
     private String login;
     private PerfilUsuario perfil;
     private LocalDateTime fechaRegistro;
@@ -12,6 +14,9 @@ public class Usuario {
 
     public Boolean isActivo(){
         return activo;
+    }
+     public Long getId() {
+        return id;
     }
 }
 

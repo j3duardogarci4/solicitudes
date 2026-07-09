@@ -22,4 +22,8 @@ public class UsuarioService {
 
     }
 
+    public boolean usuarioActivo(Usuario usuario){
+        return usuario.isActivo();
+    }
+
 }

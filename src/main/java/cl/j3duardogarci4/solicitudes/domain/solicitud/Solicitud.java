@@ -12,6 +12,14 @@ public class Solicitud {
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
     
+    public LocalDateTime getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+    
     public EstadoSolicitud getEstado() {
         return estado;
     }

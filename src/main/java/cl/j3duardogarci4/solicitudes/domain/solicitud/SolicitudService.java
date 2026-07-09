@@ -7,23 +7,20 @@ import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
 
 public class SolicitudService {
     
-    private final SolicitudRepository solictudRepository;
+    private final SolicitudRepository solicitudRepository;
     private final AuditoriaService auditoriaService;
     public SolicitudService(SolicitudRepository solicitudRepository, AuditoriaService auditoriaService){
-       this.solictudRepository = solicitudRepository;
+       this.solicitudRepository = solicitudRepository;
        this.auditoriaService = auditoriaService;	
     } 
 
     public void crearSolicitud(Solicitud solicitud, Usuario usuario) {
 
         // Validar usuario
-        if (usuario == null) {
-            throw new IllegalArgumentException("El usuario es obligatorio.");
-        }
+        validarUsuario(usuario);
+
         // Validar que el usuario esté activo
-        if (!usuario.isActivo()) {
-                throw new IllegalArgumentException("El usuario está inactivo.");
-                }
+        validarUsuarioActivo(usuario);
 
         // Asignar estado borrador
         solicitud.setEstado(EstadoSolicitud.BORRADOR);
@@ -32,7 +29,7 @@ public class SolicitudService {
         solicitud.setFechaGeneracion(LocalDateTime.now());
 
         // Guardar solicitud    
-        solictudRepository.guardar(solicitud);
+        solicitudRepository.guardar(solicitud);
 
         // Registrar auditoria
         auditoriaService.registrarAccion(solicitud.getId(), "CREAR_SOLICITUD", usuario);
@@ -41,48 +38,103 @@ public class SolicitudService {
     public void modificarSolicitud(Solicitud solicitud, Usuario usuario, String nuevaDescripcion) {
 
         // Validar que la solicitud exista
-        if (solicitud == null){
-            throw new IllegalArgumentException("La solicitud es obligatoria");
-        }
+        validarSolicitud(solicitud);
 
         // Validar usuario
-        if (!usuario.isActivo()){
-            throw new IllegalArgumentException("El usuario está inactivo");
-        }       
+        validarUsuario(usuario);      
+        validarUsuarioActivo(usuario); 
 
         // Validar que el usuario sea el creador
-        if (!solicitud.getIdUsuarioCreador().equals(usuario.getId())){
-             throw new IllegalArgumentException("Solo el creador puede modificar la solicitud");
-        }
+        validarUsuarioCreador(usuario, solicitud);
 
         // Validar que el estado sea BORRADOR
-        if (!(solicitud.getEstado() !=   EstadoSolicitud.BORRADOR)){
-            throw new IllegalArgumentException("Solo las solicitudes en estado BORRADOR pueden modificarse");
-        }
+        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
 
         // Actualizar descripción 
         solicitud.setDescripcion(nuevaDescripcion);
 
         // Registrar fecha de actualización
-        solicitud.setFechaGeneracion(LocalDateTime.now());
+        solicitud.setFechaActualizacion(LocalDateTime.now());
 
         // Guardar Solicitud
-        solictudRepository.actualizar(solicitud);
-
+        solicitudRepository.actualizar(solicitud);
 
         // Registrar auditoria
         auditoriaService.registrarAccion(solicitud.getId(), "MODIFICAR_SOLICITUD", usuario);
-
-        
-
 
     }
 
     public void enviarSolicitud(Solicitud solicitud, Usuario usuario) {
 
+        // validar la solicitud 
+        validarSolicitud(solicitud);
+
+        // validar si el usuario existe
+        validarUsuario(usuario);
+
+        // validar usuario activo
+        validarUsuarioActivo(usuario);
+       
+        // validar estado de la solicitud 
+        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+     
+        // validar si el usuario es el creador
+        validarUsuarioCreador(usuario, solicitud);
+
+        // Validar información mínima 
+        validarInformacionMinima(solicitud);
+
+        // Cambiar estado a ENVIADA
+        solicitud.setEstado(EstadoSolicitud.ENVIADA);
+
+        // Guardar solicitud 
+        solicitudRepository.actualizar(solicitud);
+
+        // Registrar auditoría 
+        auditoriaService.registrarAccion(solicitud.getId(), "ENVIAR_SOLICITUD", usuario);
+
     }
 
     public void crearSolicitudDesdeRechazada(Long idSolicitudRechazada, Usuario usuario) {
+
+    }
+
+    private void validarUsuario(Usuario usuario){
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario es obligatorio.");
+        }
+    }
+    
+    private void validarUsuarioActivo(Usuario usuario){
+        if (!usuario.isActivo()) {
+                throw new IllegalArgumentException("El usuario está inactivo.");
+                }
+    }
+    
+    private void validarEstado(Solicitud solicitud, EstadoSolicitud estado){
+        if (solicitud.getEstado() != estado){
+            throw new IllegalArgumentException("La solicitud no se encuetra en el estado esperado");
+        }
+
+    }
+
+    private void validarUsuarioCreador(Usuario usuario, Solicitud solicitud) {
+        if (!solicitud.getIdUsuarioCreador().equals(usuario.getId())){
+             throw new IllegalArgumentException("Solo el creador puede modificar la solicitud");
+        }
+    }
+
+    private void validarSolicitud(Solicitud solicitud){
+        if (solicitud == null){
+            throw new IllegalArgumentException("La solicitud es obligatoria");
+        }
+
+    }
+
+    private void validarInformacionMinima(Solicitud solicitud){
+        if (solicitud.getDescripcion() == null || solicitud.getDescripcion().isBlank()) {
+            throw new IllegalArgumentException("La descripción de la solicitud es obligatoria.");
+        }
 
     }
 

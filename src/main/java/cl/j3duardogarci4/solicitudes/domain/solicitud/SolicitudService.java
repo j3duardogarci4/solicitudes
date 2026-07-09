@@ -97,6 +97,36 @@ public class SolicitudService {
 
     public void crearSolicitudDesdeRechazada(Long idSolicitudRechazada, Usuario usuario) {
 
+        // Buscar solicitud rechazada
+        Solicitud solicitudRechazada = solicitudRepository.buscarPorId(idSolicitudRechazada) 
+                       .orElseThrow(() ->
+                                new IllegalArgumentException("Solicitud inexistente."));
+
+        // Validar que exista 
+        validarSolicitud(solicitudRechazada);
+        // Validar usuario
+        validarUsuario(usuario);
+
+        // Validar usuario activo
+        validarUsuarioActivo(usuario);
+
+        // Validar que el usuario sea el creador
+        validarUsuarioCreador(usuario, solicitudRechazada);
+
+        // Validar estado RECHAZADA
+        validarEstado(solicitudRechazada, EstadoSolicitud.RECHAZADA);
+
+        // Crear nueva solicitud 
+        Solicitud nuevaSolicitud = solicitudRechazada.crearNuevaSolicitud();
+
+        // Guardar nueva solicitud
+        solicitudRepository.guardar(nuevaSolicitud);
+        
+        // Registrar auditoria
+        auditoriaService.registrarAccion(idSolicitudRechazada, "CREACION_SOLICITUD_DESDE_RECHAZADA", usuario);
+
+
+
     }
 
     private void validarUsuario(Usuario usuario){

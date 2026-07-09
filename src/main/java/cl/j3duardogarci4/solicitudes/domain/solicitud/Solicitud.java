@@ -44,4 +44,19 @@ public class Solicitud {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    public void setIdUsuarioCreador(Long idUsuarioCreador) {
+        this.idUsuarioCreador = idUsuarioCreador;
+    }
+
+
+    public Solicitud crearNuevaSolicitud() {
+
+        Solicitud nueva = new Solicitud();
+        nueva.setDescripcion(this.descripcion);
+        nueva.setIdUsuarioCreador(this.idUsuarioCreador);
+        nueva.setEstado(EstadoSolicitud.BORRADOR);
+        nueva.setFechaGeneracion(LocalDateTime.now());
+        return nueva;
+        
+    }
 }

@@ -1,9 +1,10 @@
 package cl.j3duardogarci4.solicitudes.domain.workflow;
 
 import cl.j3duardogarci4.solicitudes.domain.comentario.Comentario;
+import cl.j3duardogarci4.solicitudes.domain.solicitud.EstadoSolicitud;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
+import cl.j3duardogarci4.solicitudes.domain.usuario.PerfilUsuario;
 import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
-import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaRepository;
 import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
 import cl.j3duardogarci4.solicitudes.domain.comentario.ComentarioRepository;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
@@ -11,37 +12,153 @@ import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
 public class WorkflowService {
     private final SolicitudRepository solicitudRepository;
     private final ComentarioRepository comentarioRepository;
-    private final AuditoriaRepository auditoriaRepository;
+    private final AuditoriaService auditoriaService;
+    
     
     public WorkflowService(
             SolicitudRepository solicitudRepository,          
             ComentarioRepository comentarioRepository,
-            AuditoriaRepository  auditoriaRepository){
+            AuditoriaService  auditoriaService){
         
         
         this.solicitudRepository = solicitudRepository;
         this.comentarioRepository = comentarioRepository;
-        this.auditoriaRepository = auditoriaRepository;
+        this.auditoriaService = auditoriaService;
         
     }
-    public void iniciarRevision(Solicitud solicitud, Usuario usuario) {
+    public void iniciarRevision(Solicitud solicitud, Usuario supervisor) {
+
+        // Validar usuario
+        validarUsuario(supervisor);
+         
+        // Validar supervisor activo
+        validarUsuarioActivo(supervisor);
+        
+        // Validar supervisor 
+        validarSupervisor(supervisor);
+
+        // Validar estado ENVIADA
+        validarEstado(solicitud, EstadoSolicitud.ENVIADA);
+        
+        // Asignar supervisor
+        solicitud.asignarSupervisor(supervisor.getId());
+        
+        // Cambiar estado a EN_REVISION
+        solicitud.setEstado(EstadoSolicitud.EN_REVISION); 
+
+        // Guardar solicitud
+        solicitudRepository.actualizar(solicitud);
+
+        // Registrar auditoria
+        auditoriaService.registrarAccion(solicitud.getId(), "INICIAR_REVISION", supervisor);
 
     }
 
-    public void aprobarSolicitud(Solicitud solicitud, Usuario usuario) {
+   
 
+    public void aprobarSolicitud(Solicitud solicitud, Usuario supervisor) {
+
+        // Validaciones
+        validarUsuario(supervisor);
+         
+        // Validar supervisor activo
+        validarUsuarioActivo(supervisor);
+        
+        // Validar supervisor 
+        validarSupervisor(supervisor);
+
+        // Validar estado ENVIADA
+        validarEstado(solicitud, EstadoSolicitud.EN_REVISION);
+
+        // Estado aprobada
+        solicitud.setEstado(EstadoSolicitud.APROBADA);
+
+        // Actualizar Solicitud
+        solicitudRepository.actualizar(solicitud);
+
+        // Registro auditoria
+        auditoriaService.registrarAccion(solicitud.getId(), "SOLICITUD_APROBADA", supervisor);
     }
 
-    public void rechazarSolicitud(Solicitud solicitud, Usuario usuario, Comentario comentario) {
+    public void rechazarSolicitud(Solicitud solicitud, Usuario supervisor, Comentario comentario) {
+        //Validaciones
+        validarUsuario(supervisor);
+        validarUsuarioActivo(supervisor);  
+        validarEstado(solicitud,EstadoSolicitud.EN_REVISION);
+        validarSupervisor(supervisor);
+
+        // validar y guardar comentario
+        validarComentario (comentario);
+        comentarioRepository.guardar(comentario);
+        solicitudRepository.actualizar(solicitud);
+
+        // Actualizar estado
+        solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+        
+        // Registrar auditoria
+        auditoriaService.registrarAccion(solicitud.getId(), "RECHAZAR_SOLICITUD", supervisor);
 
     }
 
     public void cerrarSolicitud(Solicitud solicitud, Usuario usuario) {
 
+        //Validaciones
+        validarUsuario(usuario);
+        validarUsuarioActivo(usuario);  
+        validarEstado(solicitud,EstadoSolicitud.APROBADA);
+        
+        // actualizando al estado correspondiente 
+        solicitud.setEstado(EstadoSolicitud.CERRADA);
+
+        // Actualizar solicitud
+        solicitudRepository.actualizar(solicitud);
+
+        // Registrar auditoría
+        auditoriaService.registrarAccion(solicitud.getId(),"SOLICITUD_CERRADA", usuario);
     }
 
     public void eliminarSolicitud(Solicitud solicitud, Usuario usuario) {
 
+         throw new UnsupportedOperationException(
+            "Pendiente de implementación");
+
     }
+
+    private void validarComentario(Comentario comentario){
+        if (comentario == null) {
+            throw new IllegalArgumentException("El comentario es obligatorio.");
+        }
+        if (comentario.getDescripcion() == null ||  comentario.getDescripcion().isBlank()) {
+            throw new IllegalArgumentException("El comentario no puede estar vacío.");
+        }
+    }
+    
+    private void validarEstado(Solicitud solicitud, EstadoSolicitud estado){
+        if (solicitud.getEstado() != estado){
+            throw new IllegalArgumentException("La solicitud no se encuentra en el estado esperado");
+        }
+    }
+
+    private void validarSupervisor(Usuario supervisor) {
+
+        if (supervisor.getPerfil() != PerfilUsuario.SUPERVISOR) {
+            throw new IllegalArgumentException(
+                            "El usuario no tiene perfil de supervisor.");
+        }
+    }
+
+    private void validarUsuarioActivo(Usuario supervisor){
+        if (!supervisor.isActivo()) {
+                throw new IllegalArgumentException(
+                            "El usuario debe estar activo.");
+        }
+    }
+
+    private void validarUsuario(Usuario usuario){
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario es obligatorio.");
+        }
+    }
+
 
 }

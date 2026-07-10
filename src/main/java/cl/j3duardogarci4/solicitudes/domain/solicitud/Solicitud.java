@@ -12,6 +12,14 @@ public class Solicitud {
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
     
+    public void setIdSupervisorAsignado(Long idSupervisorAsignado) {
+        this.idSupervisorAsignado = idSupervisorAsignado;
+    }
+
+    public void asignarSupervisor(Long idSupervisorAsignado){
+        this.idSupervisorAsignado = idSupervisorAsignado;
+    }
+
     public LocalDateTime getFechaActualizacion() {
         return fechaActualizacion;
     }

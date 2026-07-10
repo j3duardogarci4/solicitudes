@@ -143,7 +143,7 @@ public class SolicitudService {
     
     private void validarEstado(Solicitud solicitud, EstadoSolicitud estado){
         if (solicitud.getEstado() != estado){
-            throw new IllegalArgumentException("La solicitud no se encuetra en el estado esperado");
+            throw new IllegalArgumentException("La solicitud no se encuentra en el estado esperado");
         }
 
     }

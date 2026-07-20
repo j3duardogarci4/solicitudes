@@ -1,6 +1,7 @@
 package cl.j3duardogarci4.solicitudes.domain.solicitud;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
 import cl.j3duardogarci4.solicitudes.domain.usuario.Usuario;
@@ -40,15 +41,7 @@ public class SolicitudService {
         // Validar que la solicitud exista
         validarSolicitud(solicitud);
 
-        // Validar usuario
-        validarUsuario(usuario);      
-        validarUsuarioActivo(usuario); 
-
-        // Validar que el usuario sea el creador
-        validarUsuarioCreador(usuario, solicitud);
-
-        // Validar que el estado sea BORRADOR
-        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+        validarOperacionSobreSolicitudEnBorrador(usuario, solicitud);
 
         // Actualizar descripción 
         solicitud.setDescripcion(nuevaDescripcion);
@@ -69,17 +62,7 @@ public class SolicitudService {
         // validar la solicitud 
         validarSolicitud(solicitud);
 
-        // validar si el usuario existe
-        validarUsuario(usuario);
-
-        // validar usuario activo
-        validarUsuarioActivo(usuario);
-       
-        // validar estado de la solicitud 
-        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
-     
-        // validar si el usuario es el creador
-        validarUsuarioCreador(usuario, solicitud);
+        validarOperacionSobreSolicitudEnBorrador(usuario, solicitud);
 
         // Validar información mínima 
         validarInformacionMinima(solicitud);
@@ -124,11 +107,21 @@ public class SolicitudService {
         
         // Registrar auditoria
         auditoriaService.registrarAccion(idSolicitudRechazada, "CREACION_SOLICITUD_DESDE_RECHAZADA", usuario);
+    }
 
+    public void eliminarSolicitud(Long solicitudId, Usuario usuario){
 
+        Solicitud solicitud = obtenerSolicitud(solicitudId);
+        validarOperacionSobreSolicitudEnBorrador(usuario, solicitud);
 
     }
 
+    private Solicitud obtenerSolicitud(Long solicitudId){
+
+        return solicitudRepository.buscarPorId(solicitudId)
+        .orElseThrow(() ->
+            new IllegalArgumentException("La solicitud no existe."));
+    }
     private void validarUsuario(Usuario usuario){
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario es obligatorio.");
@@ -168,4 +161,11 @@ public class SolicitudService {
 
     }
 
+    private void validarOperacionSobreSolicitudEnBorrador(Usuario usuario, Solicitud solicitud){
+
+        validarUsuario(usuario);
+        validarUsuarioActivo(usuario);
+        validarUsuarioCreador(usuario, solicitud);
+        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+    }
 }

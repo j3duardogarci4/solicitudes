@@ -8,5 +8,5 @@ public class Auditoria {
     private Long idSolicitud;
     private Long idUsuario;
     private String accion;
-    private LocalDateTime fechaRegistro;
+    private LocalDateTime fecha;
 }

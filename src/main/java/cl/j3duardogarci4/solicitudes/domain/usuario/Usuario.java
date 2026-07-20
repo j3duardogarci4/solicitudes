@@ -8,7 +8,7 @@ public class Usuario {
     private String login;
     private PerfilUsuario perfil;
     private LocalDateTime fechaRegistro;
-    private Boolean activo;
+    private boolean activo;
 
     public PerfilUsuario getPerfil() {
         return perfil;
@@ -17,7 +17,7 @@ public class Usuario {
         this.perfil = perfil;
     }
     
-    public Boolean isActivo(){
+    public boolean isActivo(){
         return activo;
     }
      public Long getId() {

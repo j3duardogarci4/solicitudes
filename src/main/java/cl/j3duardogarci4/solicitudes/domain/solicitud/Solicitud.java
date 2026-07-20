@@ -11,11 +11,11 @@ public class Solicitud {
     private EstadoSolicitud estado;
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
-    
-    public void setIdSupervisorAsignado(Long idSupervisorAsignado) {
-        this.idSupervisorAsignado = idSupervisorAsignado;
-    }
 
+    public LocalDateTime getFechaGeneracion() {
+        return fechaGeneracion;
+    }
+    
     public void asignarSupervisor(Long idSupervisorAsignado){
         this.idSupervisorAsignado = idSupervisorAsignado;
     }

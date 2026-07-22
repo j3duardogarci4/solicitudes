@@ -6,15 +6,28 @@ public class Solicitud {
 
     private Long id;
     private String descripcion;
-    private LocalDateTime fechaGeneracion;
+    private LocalDateTime fechaGeneracion;  
     private LocalDateTime fechaActualizacion;
     private EstadoSolicitud estado;
     private Long idUsuarioCreador;
     private Long idSupervisorAsignado;
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDateTime getFechaGeneracion() {
         return fechaGeneracion;
     }
+
+    public Long getIdSupervisorAsignado() {
+        return idSupervisorAsignado;
+    }
+
+    public void setIdSupervisorAsignado(Long idSupervisorAsignado) {
+        this.idSupervisorAsignado = idSupervisorAsignado;
+    }
+   
     
     public void asignarSupervisor(Long idSupervisorAsignado){
         this.idSupervisorAsignado = idSupervisorAsignado;

@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import cl.j3duardogarci4.solicitudes.application.solicitud.CrearSolicitudUseCase;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.EstadoSolicitud;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
@@ -20,7 +21,7 @@ public class SolicitudesApplication {
     }
 
     @Bean
-    CommandLineRunner prueba(SolicitudRepository repository) {
+    CommandLineRunner prueba(CrearSolicitudUseCase crearSolicitudUseCase, SolicitudRepository repository) {
     return args -> {
 
         Solicitud solicitud = new Solicitud();
@@ -32,9 +33,12 @@ public class SolicitudesApplication {
         solicitud.setIdUsuarioCreador(1L);
         solicitud.setIdSupervisorAsignado(2L);
 
-        repository.guardar(solicitud);
+        
+        crearSolicitudUseCase.ejecutar(solicitud);
 
         System.out.println("Solicitud guardada.");
+        
+       
 
         Optional<Solicitud> recuperada = repository.buscarPorId(1L);
 

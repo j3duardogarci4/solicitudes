@@ -24,9 +24,14 @@ public class SolicitudRepositoryAdapter implements SolicitudRepository {
     }
 
     @Override
-    public void guardar(Solicitud solicitud) {
+    public Solicitud guardar(Solicitud solicitud) {
+
          SolicitudEntity entity = mapper.toEntity(solicitud);
-         solicitudJpaRepository.save(entity);
+
+         SolicitudEntity entityGuardada = solicitudJpaRepository.save(entity);
+
+         return mapper.toDomain(entityGuardada);
+
     }
 
     @Override

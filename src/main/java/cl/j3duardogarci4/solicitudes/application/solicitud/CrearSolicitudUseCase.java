@@ -8,15 +8,14 @@ import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
 @Service
 public class CrearSolicitudUseCase {
     
-     private final SolicitudRepository solicitudRepository;
+    private final SolicitudRepository solicitudRepository;
     
     public CrearSolicitudUseCase(SolicitudRepository solicitudRepository) {
         this.solicitudRepository =  solicitudRepository;
     }
 
-     public void ejecutar(Solicitud solicitud){
-
-        solicitudRepository.guardar(solicitud);
+    public Solicitud ejecutar(Solicitud solicitud){
+        return solicitudRepository.guardar(solicitud);
      }
     
 }

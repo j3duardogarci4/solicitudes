@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface SolicitudRepository {
 
-    void guardar(Solicitud solicitud);
+    Solicitud guardar(Solicitud solicitud);
 
     Optional<Solicitud> buscarPorId(Long id);
 

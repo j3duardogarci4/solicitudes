@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import cl.j3duardogarci4.solicitudes.application.solicitud.BuscarSolicitudUseCase;
 import cl.j3duardogarci4.solicitudes.application.solicitud.CrearSolicitudUseCase;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.EstadoSolicitud;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
@@ -21,7 +22,7 @@ public class SolicitudesApplication {
     }
 
     @Bean
-    CommandLineRunner prueba(CrearSolicitudUseCase crearSolicitudUseCase, SolicitudRepository repository) {
+    CommandLineRunner prueba(CrearSolicitudUseCase crearSolicitudUseCase,  BuscarSolicitudUseCase buscarSolicitudUseCase) {
     return args -> {
 
         Solicitud solicitud = new Solicitud();
@@ -32,15 +33,15 @@ public class SolicitudesApplication {
         solicitud.setFechaActualizacion(LocalDateTime.now());
         solicitud.setIdUsuarioCreador(1L);
         solicitud.setIdSupervisorAsignado(2L);
-
         
-        crearSolicitudUseCase.ejecutar(solicitud);
+        Solicitud solicitudGuardada = crearSolicitudUseCase.ejecutar(solicitud);
 
         System.out.println("Solicitud guardada.");
-        
-       
 
-        Optional<Solicitud> recuperada = repository.buscarPorId(1L);
+        Long id = solicitudGuardada.getId();        
+       
+        Optional<Solicitud> recuperada = buscarSolicitudUseCase.ejecutar(id);
+
 
         if (recuperada.isPresent()) {
             System.out.println("Solicitud encontrada");

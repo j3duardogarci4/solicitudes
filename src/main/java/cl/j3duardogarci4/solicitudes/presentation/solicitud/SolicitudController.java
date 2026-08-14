@@ -19,7 +19,8 @@
     import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
     import cl.j3duardogarci4.solicitudes.presentation.solicitud.dto.CrearSolicitudRequest;
     import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+    import cl.j3duardogarci4.solicitudes.application.solicitud.ActualizarSolicitudUseCase;
+    import org.springframework.web.bind.annotation.PutMapping;
     import jakarta.validation.Valid;
 
 
@@ -30,12 +31,15 @@
 
         private final CrearSolicitudUseCase crearSolicitudUseCase;
         private final BuscarSolicitudUseCase buscarSolicitudUseCase;
+        private final ActualizarSolicitudUseCase actualizarSolicitudUseCase;
 
         public SolicitudController ( CrearSolicitudUseCase crearSolicitudUseCase,
-                BuscarSolicitudUseCase buscarSolicitudUseCase){
+                BuscarSolicitudUseCase buscarSolicitudUseCase,
+                ActualizarSolicitudUseCase actualizarSolicitudUseCase){
 
             this.crearSolicitudUseCase = crearSolicitudUseCase;
             this.buscarSolicitudUseCase = buscarSolicitudUseCase;
+            this.actualizarSolicitudUseCase = actualizarSolicitudUseCase;
         }
         
         @Operation(summary = "Crear una solicitud")
@@ -77,5 +81,25 @@
 
             return ResponseEntity.notFound().build(); 
         }
+
+        @PutMapping("/{id}")
+        public ResponseEntity<Void> actualizar(
+                                              @PathVariable Long id,
+                                              @RequestBody CrearSolicitudRequest request) {
+
+               boolean actualizada = actualizarSolicitudUseCase.ejecutar(
+                                                                        id,
+                                                                        request.getDescripcion(),
+                                                                        request.getIdSupervisorAsignado()
+                                                                        );
+
+               if (!actualizada) {
+                    return ResponseEntity.notFound().build();
+                }
+
+               return ResponseEntity.noContent().build();
+         }
+
+
 
     }

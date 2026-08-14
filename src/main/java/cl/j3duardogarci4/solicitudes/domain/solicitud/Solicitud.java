@@ -80,4 +80,11 @@ public class Solicitud {
         return nueva;
         
     }
+
+    public void actualizar(String descripcion, Long idSupervisorAsignado) {
+
+        this.descripcion = descripcion;
+        this.idSupervisorAsignado = idSupervisorAsignado;
+        this.fechaActualizacion = LocalDateTime.now();
+    }
 }

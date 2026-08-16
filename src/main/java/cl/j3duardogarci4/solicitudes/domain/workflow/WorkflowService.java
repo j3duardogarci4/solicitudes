@@ -53,7 +53,18 @@ public class WorkflowService {
         auditoriaService.registrarAccion(solicitud.getId(), "INICIAR_REVISION", supervisor);
 
     }
+   
+    public void enviarSolicitud(Solicitud solicitud, Usuario usuario){
+        validarUsuario(usuario);
+        validarUsuarioActivo(usuario);
+        validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+        solicitud.setEstado(EstadoSolicitud.ENVIADA);
 
+        solicitudRepository.actualizar(solicitud);
+
+        // Registrar auditoria
+        auditoriaService.registrarAccion(solicitud.getId(), "SOLICITUD_ENVIADA", usuario);
+    }
    
 
     public void aprobarSolicitud(Solicitud solicitud, Usuario supervisor) {
@@ -67,7 +78,7 @@ public class WorkflowService {
         // Validar supervisor 
         validarSupervisor(supervisor);
 
-        // Validar estado ENVIADA
+        // Validar estado REVISION
         validarEstado(solicitud, EstadoSolicitud.EN_REVISION);
 
         // Estado aprobada
@@ -90,10 +101,13 @@ public class WorkflowService {
         // validar y guardar comentario
         validarComentario (comentario);
         comentarioRepository.guardar(comentario);
+        
+         // Actualizar estado
+        solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+
         solicitudRepository.actualizar(solicitud);
 
-        // Actualizar estado
-        solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+       
         
         // Registrar auditoria
         auditoriaService.registrarAccion(solicitud.getId(), "RECHAZAR_SOLICITUD", supervisor);
@@ -105,7 +119,8 @@ public class WorkflowService {
         //Validaciones
         validarUsuario(usuario);
         validarUsuarioActivo(usuario);  
-        validarEstado(solicitud,EstadoSolicitud.APROBADA);
+
+        validarEstado(solicitud,EstadoSolicitud.APROBADA, EstadoSolicitud.RECHAZADA);
         
         // actualizando al estado correspondiente 
         solicitud.setEstado(EstadoSolicitud.CERRADA);
@@ -119,10 +134,25 @@ public class WorkflowService {
 
     public void eliminarSolicitud(Solicitud solicitud, Usuario usuario) {
 
-         throw new UnsupportedOperationException(
-            "Pendiente de implementación");
+         validarUsuario(usuario);
+         validarUsuarioActivo(usuario);
+
+         validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+         solicitud.setEstado(EstadoSolicitud.ELIMINADA);
+         solicitudRepository.actualizar(solicitud);
+
+         auditoriaService.registrarAccion(
+                             solicitud.getId(),
+                     "SOLICITUD_ELIMINADA",
+                             usuario
+                             );
+
+         
 
     }
+
+   
+
 
     private void validarComentario(Comentario comentario){
         if (comentario == null) {
@@ -133,10 +163,18 @@ public class WorkflowService {
         }
     }
     
-    private void validarEstado(Solicitud solicitud, EstadoSolicitud estado){
-        if (solicitud.getEstado() != estado){
-            throw new IllegalArgumentException("La solicitud no se encuentra en el estado esperado");
+    private void validarEstado(Solicitud solicitud, EstadoSolicitud... estados){
+       
+
+        for (EstadoSolicitud estado : estados) {
+            if (solicitud.getEstado() == estado) {
+                return;
+            }
         }
+         throw new IllegalArgumentException(
+             "La solicitud no se encuentra en un estado permitido"
+        );
+    
     }
 
     private void validarSupervisor(Usuario supervisor) {

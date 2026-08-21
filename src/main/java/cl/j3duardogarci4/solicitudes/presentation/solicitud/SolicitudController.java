@@ -16,10 +16,19 @@
 
     import cl.j3duardogarci4.solicitudes.application.solicitud.BuscarSolicitudUseCase;
     import cl.j3duardogarci4.solicitudes.application.solicitud.CrearSolicitudUseCase;
+    import cl.j3duardogarci4.solicitudes.application.solicitud.RechazarSolicitudUseCase;
+    import cl.j3duardogarci4.solicitudes.domain.comentario.Comentario;
     import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
     import cl.j3duardogarci4.solicitudes.presentation.solicitud.dto.CrearSolicitudRequest;
+    import cl.j3duardogarci4.solicitudes.presentation.solicitud.dto.RechazarSolicitudRequest;
+
     import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
     import cl.j3duardogarci4.solicitudes.application.solicitud.ActualizarSolicitudUseCase;
+    import cl.j3duardogarci4.solicitudes.application.solicitud.AprobarSolicitudUseCase;
+    import cl.j3duardogarci4.solicitudes.application.solicitud.EnviarSolicitudUseCase;
+    import cl.j3duardogarci4.solicitudes.application.solicitud.IniciarRevisionUseCase;
+
+
     import org.springframework.web.bind.annotation.PutMapping;
     import jakarta.validation.Valid;
 
@@ -32,14 +41,29 @@
         private final CrearSolicitudUseCase crearSolicitudUseCase;
         private final BuscarSolicitudUseCase buscarSolicitudUseCase;
         private final ActualizarSolicitudUseCase actualizarSolicitudUseCase;
+        
+        private final AprobarSolicitudUseCase aprobarSolicitudUseCase;
+        private final RechazarSolicitudUseCase rechazarSolicitudUseCase;
+        private final IniciarRevisionUseCase iniciarRevisionUseCase;
+        private final EnviarSolicitudUseCase enviarSolicitudUseCase;        
+        
 
         public SolicitudController ( CrearSolicitudUseCase crearSolicitudUseCase,
-                BuscarSolicitudUseCase buscarSolicitudUseCase,
-                ActualizarSolicitudUseCase actualizarSolicitudUseCase){
+                                     BuscarSolicitudUseCase buscarSolicitudUseCase,
+                                     ActualizarSolicitudUseCase actualizarSolicitudUseCase,
+                                     AprobarSolicitudUseCase aprobarSolicitudUseCase,
+                                     RechazarSolicitudUseCase rechazarSolicitudUseCase,
+                                     EnviarSolicitudUseCase enviarSolicitudUseCase,
+                                     IniciarRevisionUseCase iniciarRevisionUseCase){
 
             this.crearSolicitudUseCase = crearSolicitudUseCase;
             this.buscarSolicitudUseCase = buscarSolicitudUseCase;
             this.actualizarSolicitudUseCase = actualizarSolicitudUseCase;
+            this.aprobarSolicitudUseCase = aprobarSolicitudUseCase;
+            this.rechazarSolicitudUseCase = rechazarSolicitudUseCase;
+            this.enviarSolicitudUseCase = enviarSolicitudUseCase;
+            this.iniciarRevisionUseCase = iniciarRevisionUseCase;
+
         }
         
         @Operation(summary = "Crear una solicitud")
@@ -100,6 +124,73 @@
                return ResponseEntity.noContent().build();
          }
 
+        @PutMapping("/{id}/aprobar")
+        public ResponseEntity<Void> aprobar(
+                @PathVariable Long id,
+                @RequestBody Long idSupervisor) {
 
+            boolean aprobada = aprobarSolicitudUseCase.ejecutar(
+                    id,
+                    idSupervisor
+            );
+
+            if (!aprobada) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.noContent().build();
+        }
+
+
+        @PutMapping("/{id}/rechazar")
+        public ResponseEntity<Void> rechazar(
+                                            @PathVariable Long id,
+                                            @RequestBody RechazarSolicitudRequest request) {
+
+        Comentario comentario = new Comentario();
+        comentario.setDescripcion(request.getComentario());
+
+        boolean rechazada = rechazarSolicitudUseCase.ejecutar(
+                id,
+                request.getIdSupervisor(),
+                comentario
+        );
+
+        if (!rechazada) {
+            return ResponseEntity.notFound().build();
+        }
+
+            return ResponseEntity.noContent().build();
+        }
+
+        @PutMapping("/{id}/enviar")
+        public ResponseEntity<Void> enviar(
+                    @PathVariable Long id,
+                    @RequestBody Long idUsuario) {
+
+        boolean enviada = enviarSolicitudUseCase.ejecutar( id, idUsuario);
+
+        if (!enviada) {
+            return ResponseEntity.notFound().build();
+        }
+
+            return ResponseEntity.noContent().build();
+        }
+
+
+        @PutMapping("/{id}/iniciar-revision")
+        public ResponseEntity<Void> iniciarRevision(
+                        @PathVariable Long id,
+                        @RequestBody Long idSupervisor) {
+
+        boolean iniciada = iniciarRevisionUseCase.ejecutar(id, idSupervisor);
+
+        if (!iniciada) {
+            return ResponseEntity.notFound().build();
+        }
+
+            return ResponseEntity.noContent().build();
+        }
+        
 
     }

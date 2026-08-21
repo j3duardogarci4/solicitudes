@@ -1,5 +1,7 @@
 package cl.j3duardogarci4.solicitudes.domain.workflow;
 
+import org.springframework.stereotype.Service;
+
 import cl.j3duardogarci4.solicitudes.domain.comentario.Comentario;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.EstadoSolicitud;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.Solicitud;
@@ -9,6 +11,8 @@ import cl.j3duardogarci4.solicitudes.domain.auditoria.AuditoriaService;
 import cl.j3duardogarci4.solicitudes.domain.comentario.ComentarioRepository;
 import cl.j3duardogarci4.solicitudes.domain.solicitud.SolicitudRepository;
 
+
+@Service
 public class WorkflowService {
     private final SolicitudRepository solicitudRepository;
     private final ComentarioRepository comentarioRepository;

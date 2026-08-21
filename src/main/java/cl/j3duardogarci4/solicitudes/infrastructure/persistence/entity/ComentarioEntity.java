@@ -1,16 +1,32 @@
-package cl.j3duardogarci4.solicitudes.domain.comentario;
+package cl.j3duardogarci4.solicitudes.infrastructure.persistence.entity;
 
 import java.time.LocalDateTime;
 
-public class Comentario {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
- 
+@Entity
+@Table(name = "comentarios")
+public class ComentarioEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String descripcion;
     private Long idSolicitud;
-    private Long idSupervisor;  
+    private Long idSupervisor;
     private LocalDateTime fechaRegistro;
+
+    public ComentarioEntity() {
+    }
+
+    public ComentarioEntity(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -18,7 +34,7 @@ public class Comentario {
 
     public void setId(Long id) {
         this.id = id;
-    }    
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -35,7 +51,7 @@ public class Comentario {
     public void setIdSolicitud(Long idSolicitud) {
         this.idSolicitud = idSolicitud;
     }
-    
+
     public Long getIdSupervisor() {
         return idSupervisor;
     }

@@ -1,5 +1,7 @@
 package cl.j3duardogarci4.solicitudes.domain.workflow;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import cl.j3duardogarci4.solicitudes.domain.comentario.Comentario;
@@ -104,6 +106,12 @@ public class WorkflowService {
 
         // validar y guardar comentario
         validarComentario (comentario);
+
+        // Completar datos del comentario
+        comentario.setIdSolicitud(solicitud.getId());
+        comentario.setIdSupervisor(supervisor.getId());
+        comentario.setFechaRegistro(LocalDateTime.now());
+
         comentarioRepository.guardar(comentario);
         
          // Actualizar estado

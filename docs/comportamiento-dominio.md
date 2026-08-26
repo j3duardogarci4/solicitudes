@@ -165,3 +165,25 @@ Workflow
   + Toda solicitud RECHAZADA debe poseer al menos un comentario asociado.
 
    
+## Estado de implementación
+
+Las reglas definidas en este documento representan el comportamiento esperado
+del dominio.
+
+A la fecha, se encuentran implementadas y validadas:
+
+- BORRADOR → ENVIADA
+- ENVIADA → EN_REVISION
+- EN_REVISION → APROBADA
+- EN_REVISION → RECHAZADA
+- Registro de auditoría asociado a las transiciones.
+- Registro obligatorio de comentario en rechazo.
+- Persistencia de comentario con solicitud, supervisor y fecha.
+
+Pendientes de implementación:
+
+- Validación de que el supervisor aprobador no sea el creador.
+- RECHAZADA → CERRADA mediante creador.
+- APROBADA → CERRADA mediante creador.
+- Proceso automático de expiración.
+- BORRADOR → ELIMINADA mediante endpoint/caso de uso.

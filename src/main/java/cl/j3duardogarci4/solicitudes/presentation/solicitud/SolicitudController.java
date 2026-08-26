@@ -74,8 +74,6 @@
         @PostMapping
         public ResponseEntity<Solicitud> crear(@Valid @RequestBody CrearSolicitudRequest request) {
 
-            System.out.println(">>> Entró al controlador");
-
             Solicitud solicitud = crearSolicitudUseCase.ejecutar(request);
 
             return ResponseEntity

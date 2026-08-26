@@ -1,45 +1,80 @@
-Directorios:
-------------
+# Estructura del proyecto
+
+## Directorios
+
 ```text
 src/main/java
-  cl/j3duardogarci4/solicitudes
 
-   -> domain
-	    -> solicitud
-	    	-> SolicitudService.java
-	    	  + Implementa las operaciones de creación, modificación y envío de solicitudes.
-	    	-> Solicitud.java
-	    	  + Representa una solicitud
-	    	-> SolicitudRepository.java
-	    	  + Define las operaciones necesarias para almacenar y recuperar solicitudes.
-	    -> comentario
-	        -> Comentario.java
-	          + Representa un comentario asociado a una solicitud.
-	        -> ComentarioService.java
-	           + Implementa las operaciones del negocio sobre la entidad comentario.
-	        -> ComentarioRepository.java
-	        	+ Define las operaciones necesarias para almacenar y recuperar comentarios de una solicitud.
-	    -> usuario
-	        -> Usuario.java
-	           + Representa una cuenta de usuario del sistema.
-	        -> UsuarioService.java
-	           + Implementa las operaciones de administración de usuarios del sistema.
-	        -> UsuarioRepository.java
-	           + Define las operaciones necesarias para almacenar y recuperar atributos de una cuenta de usuario
-	    -> auditoria
-	        -> Auditoria.java
-	          + Representa un registro de auditoría de una solicitud
-	        -> AuditoriaService.java
-	          + Implementa las operaciones de registro y consulta de auditoría.
-	        -> AuditoriaRepository.java
-	          + Define las operaciones necesarias para almacenar y recuperar un registro de auditoría
-	    -> workflow
-	        -> WorkflowService.java 
-	       	  + Implementa las reglas de transición de estados y ciclo de vida de una solicitud.
-   -> application
-      + Contiene los casos de uso del sistema.
+cl/j3duardogarci4/solicitudes
 
-   -> infrastructure
-      + Contiene la implementación de persistencia,
-     configuración e integraciones técnicas.
-  
+├── application
+│   └── solicitud
+│       ├── ActualizarSolicitudUseCase.java
+│       ├── AprobarSolicitudUseCase.java
+│       ├── BuscarSolicitudUseCase.java
+│       ├── CerrarSolicitudUseCase.java
+│       ├── CrearSolicitudUseCase.java
+│       ├── EnviarSolicitudUseCase.java
+│       ├── IniciarRevisionUseCase.java
+│       └── RechazarSolicitudUseCase.java
+│
+├── domain
+│   ├── solicitud
+│   │   ├── Solicitud.java
+│   │   │   + Representa una solicitud.
+│   │   ├── SolicitudRepository.java
+│   │   │   + Define las operaciones necesarias para almacenar y recuperar solicitudes.
+│   │   └── SolicitudService.java
+│   │       + Contiene operaciones de negocio asociadas a la solicitud.
+│   │
+│   ├── comentario
+│   │   ├── Comentario.java
+│   │   │   + Representa un comentario asociado a una solicitud.
+│   │   └── ComentarioRepository.java
+│   │       + Define las operaciones necesarias para almacenar y recuperar comentarios.
+│   │
+│   ├── usuario
+│   │   ├── Usuario.java
+│   │   │   + Representa una cuenta de usuario del sistema.
+│   │   ├── UsuarioService.java
+│   │   │   + Contiene operaciones de administración de usuarios.
+│   │   └── UsuarioRepository.java
+│   │       + Define las operaciones necesarias para almacenar y recuperar usuarios.
+│   │
+│   ├── auditoria
+│   │   ├── Auditoria.java
+│   │   │   + Representa un registro de auditoría de una solicitud.
+│   │   ├── AuditoriaService.java
+│   │   │   + Registra las acciones realizadas sobre las solicitudes.
+│   │   └── AuditoriaRepository.java
+│   │       + Define las operaciones necesarias para almacenar y recuperar registros de auditoría.
+│   │
+│   └── workflow
+│       └── WorkflowService.java
+│           + Implementa las reglas de transición de estados y ciclo de vida de una solicitud.
+│
+├── infrastructure
+│   ├── config
+│   │   + Contiene configuración técnica de la aplicación.
+│   │
+│   └── persistence
+│       ├── adapter
+│       │   + Implementa los contratos de persistencia definidos por el dominio.
+│       ├── entity
+│       │   + Contiene las entidades JPA utilizadas para persistencia.
+│       ├── mapper
+│       │   + Realiza la conversión entre objetos de dominio y entidades de persistencia.
+│       └── repository
+│           + Contiene los repositorios Spring Data JPA.
+│
+└── presentation
+    ├── error
+    │   + Contiene el manejo global de errores y respuestas de validación.
+    │
+    └── solicitud
+        ├── SolicitudController.java
+        │   + Expone los endpoints REST relacionados con solicitudes.
+        │
+        └── dto
+            ├── CrearSolicitudRequest.java
+            └── RechazarSolicitudRequest.java

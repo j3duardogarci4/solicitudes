@@ -2,10 +2,16 @@ CU-01 Crear solicitud.
 Actor => Empleado
 Flujo:
 1.- Ingresar descripción
-2.- Presionar Enviar
+2.- Presionar Crear
 3.- Sistema valida
 4.- Sistema registra
-5.- Estado = Enviada
+5.- Estado = Borrador
+
+CU-01-A  Enviar solicitud
+1.- Seleccionar solicitud en estado borrador
+2.- Presionar enviar a revision
+3.- Sistema valida
+4.- Estado = ENVIADA
 
 CU-02 Consultar Solicitud
 Actores => Empleado / Supervisor / Administrador
@@ -17,7 +23,7 @@ CU-03 Aprobar solicitud
 Actor => Supervisor
 Precondiciones:
 - La solicitud existe.
-- La solicitud se encuentra en estado ENVIADA o EN_REVISION.
+- La solicitud se encuentra en estado EN_REVISION.
 - El supervisor tiene permisos para aprobar.
 Flujo:
 1.- El sistema muestra al supervisor las solicitudes pendientes de revisión.
@@ -37,7 +43,7 @@ CU-04 Rechazar solicitud
 Actor => Supervisor
 Flujo:
 1. Revisa solicitud.
-2. Ingresa comentario.
+2. Ingresa comentario obligatorio.
 3. Rechaza.
 4. Sistema registra auditoría.
 5. Estado = RECHAZADA.

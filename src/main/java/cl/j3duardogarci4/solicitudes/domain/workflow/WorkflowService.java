@@ -87,6 +87,13 @@ public class WorkflowService {
         // Validar estado REVISION
         validarEstado(solicitud, EstadoSolicitud.EN_REVISION);
 
+        // El creador no puede aprobar su propia solicitud
+       if (solicitud.getIdUsuarioCreador().equals(supervisor.getId())) {
+           throw new IllegalArgumentException(
+                "El supervisor aprobador no puede ser el creador de la solicitud."
+           );
+        }
+
         // Estado aprobada
         solicitud.setEstado(EstadoSolicitud.APROBADA);
 
@@ -133,6 +140,13 @@ public class WorkflowService {
         validarUsuarioActivo(usuario);  
 
         validarEstado(solicitud,EstadoSolicitud.APROBADA, EstadoSolicitud.RECHAZADA);
+
+        
+        if (!solicitud.getIdUsuarioCreador().equals(usuario.getId())) {
+           throw new IllegalArgumentException(
+                "Solo el creador de la solicitud puede cerrarla."
+        );
+}
         
         // actualizando al estado correspondiente 
         solicitud.setEstado(EstadoSolicitud.CERRADA);
@@ -150,6 +164,13 @@ public class WorkflowService {
          validarUsuarioActivo(usuario);
 
          validarEstado(solicitud, EstadoSolicitud.BORRADOR);
+
+         if (!solicitud.getIdUsuarioCreador().equals(usuario.getId())) {
+           throw new IllegalArgumentException(
+                "Solo el creador de la solicitud puede eliminarla."
+         );
+}
+
          solicitud.setEstado(EstadoSolicitud.ELIMINADA);
          solicitudRepository.actualizar(solicitud);
 

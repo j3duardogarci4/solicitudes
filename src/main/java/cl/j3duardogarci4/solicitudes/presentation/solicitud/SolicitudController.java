@@ -1,7 +1,7 @@
     package cl.j3duardogarci4.solicitudes.presentation.solicitud;
 
     import java.util.Optional;
-
+    import java.util.List;
     
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +27,13 @@
     import cl.j3duardogarci4.solicitudes.application.solicitud.AprobarSolicitudUseCase;
     import cl.j3duardogarci4.solicitudes.application.solicitud.EnviarSolicitudUseCase;
     import cl.j3duardogarci4.solicitudes.application.solicitud.IniciarRevisionUseCase;
-
+    import cl.j3duardogarci4.solicitudes.application.solicitud.ListarSolicitudesUseCase;
+    
 
     import org.springframework.web.bind.annotation.PutMapping;
     import jakarta.validation.Valid;
-
+    
+    
 
 
     @RestController
@@ -45,7 +47,9 @@
         private final AprobarSolicitudUseCase aprobarSolicitudUseCase;
         private final RechazarSolicitudUseCase rechazarSolicitudUseCase;
         private final IniciarRevisionUseCase iniciarRevisionUseCase;
-        private final EnviarSolicitudUseCase enviarSolicitudUseCase;        
+        private final EnviarSolicitudUseCase enviarSolicitudUseCase;    
+        private final ListarSolicitudesUseCase listarSolicitudesUseCase;
+
         
 
         public SolicitudController ( CrearSolicitudUseCase crearSolicitudUseCase,
@@ -54,7 +58,8 @@
                                      AprobarSolicitudUseCase aprobarSolicitudUseCase,
                                      RechazarSolicitudUseCase rechazarSolicitudUseCase,
                                      EnviarSolicitudUseCase enviarSolicitudUseCase,
-                                     IniciarRevisionUseCase iniciarRevisionUseCase){
+                                     IniciarRevisionUseCase iniciarRevisionUseCase,
+                                     ListarSolicitudesUseCase listarSolicitudesUseCase){
 
             this.crearSolicitudUseCase = crearSolicitudUseCase;
             this.buscarSolicitudUseCase = buscarSolicitudUseCase;
@@ -63,14 +68,25 @@
             this.rechazarSolicitudUseCase = rechazarSolicitudUseCase;
             this.enviarSolicitudUseCase = enviarSolicitudUseCase;
             this.iniciarRevisionUseCase = iniciarRevisionUseCase;
+            this.listarSolicitudesUseCase = listarSolicitudesUseCase;
 
+        }
+
+        @Operation(summary = "Listar todas las solicitudes")
+        @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Listado de solicitudes")
+        })
+        @GetMapping
+        public ResponseEntity<List<Solicitud>> listar() {
+              return ResponseEntity.ok(listarSolicitudesUseCase.ejecutar());
         }
         
         @Operation(summary = "Crear una solicitud")
         @ApiResponses({
         @ApiResponse(responseCode = "201", description = "Solicitud creada"),
         @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos")
-})
+})     
+
         @PostMapping
         public ResponseEntity<Solicitud> crear(@Valid @RequestBody CrearSolicitudRequest request) {
 

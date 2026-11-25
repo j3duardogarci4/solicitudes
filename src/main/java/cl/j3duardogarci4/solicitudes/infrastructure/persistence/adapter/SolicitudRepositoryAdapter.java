@@ -1,5 +1,6 @@
 package cl.j3duardogarci4.solicitudes.infrastructure.persistence.adapter;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -46,5 +47,13 @@ public class SolicitudRepositoryAdapter implements SolicitudRepository {
         SolicitudEntity entity = mapper.toEntity(solicitud);
         solicitudJpaRepository.save(entity);
         
+    }
+
+    @Override 
+    public  List<Solicitud> listarTodas(){
+        return solicitudJpaRepository.findAll()
+               .stream()
+               .map(mapper::toDomain)
+               .toList();
     }
 }
